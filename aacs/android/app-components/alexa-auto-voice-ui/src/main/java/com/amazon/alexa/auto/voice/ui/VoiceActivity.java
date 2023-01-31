@@ -224,6 +224,7 @@ public class VoiceActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         Log.d(TAG, "onDestroy");
+        Log.e("cc_alexa","voiceActivity:onDestroy");
         super.onDestroy();
         mEarconController.uninitEarcon();
         if (mNetworkErrorTTSPrompt != null) {
@@ -251,6 +252,9 @@ public class VoiceActivity extends AppCompatActivity {
     public void onVoiceUiStateChange(AutoVoiceUIMessage message) {
         Log.d(TAG,
                 "Receiving voice interaction message, topic: " + message.getTopic()
+                        + " action: " + message.getAction());
+        Log.d("cc_alexa",
+                "voiceActivity:Receiving voice interaction message, topic: " + message.getTopic()
                         + " action: " + message.getAction());
         final String messageTopic = message.getTopic();
         final String messageAction = message.getAction();

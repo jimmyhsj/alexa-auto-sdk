@@ -14,7 +14,10 @@
  */
 package com.amazon.alexa.auto.voiceinteraction.service;
 
+import static android.service.voice.VoiceInteractionSession.SHOW_WITH_ASSIST;
+
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -22,6 +25,8 @@ import android.os.SystemClock;
 import android.service.voice.VoiceInteractionService;
 import android.service.voice.VoiceInteractionSession;
 import android.util.Log;
+import android.view.Gravity;
+import android.widget.Toast;
 
 import com.amazon.aacsconstants.AASBConstants;
 import com.amazon.aacsconstants.Action;
@@ -64,10 +69,13 @@ public class AutoVoiceInteractionService extends VoiceInteractionService {
 
     private static String[] AMAZONLITE_MODEL_FILES;
 
+
     @Override
     public void onCreate() {
         Log.i(TAG, "onCreate");
+        Log.e("cc_alexa", "onCreate:AutoVoiceInteractionService");
         super.onCreate();
+
         EventBus.getDefault().register(this);
 
         AlexaApp mApp = AlexaApp.from(this);
@@ -87,6 +95,7 @@ public class AutoVoiceInteractionService extends VoiceInteractionService {
     @Override
     public void onReady() {
         Log.i(TAG, "OnReady");
+            Log.e("cc_alexa", "OnReady:AutoVoiceInteractionService");
         super.onReady();
 
         // Temporary fix to start AACS 30 seconds after startup of VIS after recent
@@ -130,6 +139,11 @@ public class AutoVoiceInteractionService extends VoiceInteractionService {
 
     @Subscribe
     public void onVoiceInteractionStateChange(AutoVoiceInteractionMessage message) {
+        if (message.getAction().equals("CONNECTED")) {
+            Toast toast = Toast.makeText(this, "Alexa is connected", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        }
         if (message.getTopic().equals(Constants.TOPIC_ALEXA_CONNECTION)) {
             isAlexaConnected = message.getAction().equals(Constants.CONNECTION_STATUS_CONNECTED);
         }
@@ -138,15 +152,51 @@ public class AutoVoiceInteractionService extends VoiceInteractionService {
             final Bundle args = new Bundle();
             if (isAlexaConnected) {
                 Log.d(TAG, "SpeechRecognizer: Wake word is detected...");
+                Log.e("cc_alexa","SpeechRecognizer: Wake word is detected...");
                 args.putString(AASBConstants.TOPIC, Topic.SPEECH_RECOGNIZER);
                 args.putString(AASBConstants.ACTION, Action.SpeechRecognizer.WAKEWORD_DETECTED);
             } else {
                 Log.d(TAG, "Alexa is not connected!");
+                Log.e("cc_alexa","Alexa is not connected!");
                 args.putString(AASBConstants.TOPIC, Constants.TOPIC_ALEXA_CONNECTION);
                 args.putString(AASBConstants.ACTION, Constants.ACTION_ALEXA_NOT_CONNECTED);
             }
             args.putString(AASBConstants.PAYLOAD, message.getPayload());
-            showSession(args, VoiceInteractionSession.SHOW_WITH_ASSIST);
+
+            //modify by cc
+//            showSession(args, VoiceInteractionSession.SHOW_WITH_ASSIST);
+            onShow(args,SHOW_WITH_ASSIST);
         }
     }
+
+    //===============================modify by cc start===========================================
+    public void onShow(Bundle args, int showFlags) {
+        Log.d(TAG, "onShow");
+        Intent intent = new Intent(this, VoiceActivity.class);
+        if (showFlags == SHOW_WITH_ASSIST) {
+            String msgTopic = args.getString(AASBConstants.TOPIC, null);
+            if (Topic.SPEECH_RECOGNIZER.equals(msgTopic) || com.amazon.alexa.auto.voice.ui.common.Constants.TOPIC_ALEXA_CONNECTION.equals(msgTopic)) {
+                Log.d(TAG, "Parsing message from VIS... Sending to VA.");
+            } else {
+                Log.e(TAG, "onShow called without message from VIS, VA will not be started.");
+                return;
+            }
+        } else {
+            Log.d(TAG, "SpeechRecognizer: PTT is detected...");
+            args.putString(AASBConstants.TOPIC, Topic.SPEECH_RECOGNIZER);
+            args.putString(AASBConstants.ACTION, Action.SpeechRecognizer.START_CAPTURE);
+            args.putString(AASBConstants.PAYLOAD, "");
+        }
+
+        try {
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtras(args);
+            Log.d("cc_alexa", "onVoiceInteractionStateChange:onShow:startVoiceActivity");
+            startActivity(intent);
+        }catch (Exception e){
+            Log.e("cc_alexa","onVoiceInteractionStateChange:onShow:startVoiceActivity:error:"+e);
+        }
+
+    }
+    //===============================modify by cc end===========================================
 }

@@ -178,7 +178,7 @@ public class AlexaAutoClientService extends Service implements AACSContext {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onStartCommand, " + intent);
-
+        Log.e("cc_alexa","cc_alexa_auto_client_service start:"+mStateMachine.getState());
         if (mStateMachine.getState() == AACSConstants.State.STARTED && intent != null && intent.getAction() != null) {
             if (intent.getAction().equals(Action.LAUNCH_SERVICE)) {
                 if (!intent.getBooleanExtra(AACSConstants.NEW_CONFIG, false) && FileUtil.isConfigurationSaved(this)) {
@@ -235,7 +235,6 @@ public class AlexaAutoClientService extends Service implements AACSContext {
         } else if (intent != null) {
             Log.w(TAG, "Missing Payload, noop...");
         }
-
         return Service.START_STICKY;
     }
 

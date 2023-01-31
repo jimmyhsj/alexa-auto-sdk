@@ -35,10 +35,11 @@ public class CheckDefaultAssistAppCommand extends Command {
 
     @Override
     public void execute() {
-        if (shouldSkipAssistAppSelectionScreen(getContext())) {
-            publishEvent(new WorkflowMessage(LoginEvent.ALEXA_IS_SELECTED_EVENT));
-        } else {
-            publishEvent(new WorkflowMessage(LoginEvent.ALEXA_NOT_SELECTED_EVENT));
-        }
+//        if (shouldSkipAssistAppSelectionScreen(getContext())) {
+//            publishEvent(new WorkflowMessage(LoginEvent.ALEXA_IS_SELECTED_EVENT));
+//        } else {
+//            publishEvent(new WorkflowMessage(LoginEvent.ALEXA_NOT_SELECTED_EVENT));
+//        }
+        publishEvent(new WorkflowMessage(LoginEvent.ALEXA_IS_SELECTED_EVENT));
     }
 }
