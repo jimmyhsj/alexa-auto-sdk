@@ -1,0 +1,16 @@
+1675069139
+/Users/jimmyhsj/Projects/alexa-auto-sdk-4.1.1/aacs/android/service/core-service/libs/aasb.aar: 4039b14716cbe67de1061c71bd698a44
+/Users/jimmyhsj/Projects/alexa-auto-sdk-4.1.1/aacs/android/service/core-service/libs/address-book.aar: eb4f82880a196dffd60b3959a21f4fab
+/Users/jimmyhsj/Projects/alexa-auto-sdk-4.1.1/aacs/android/service/core-service/libs/alexa.aar: 1ec6acb02ae90364633dca929955ff7c
+/Users/jimmyhsj/Projects/alexa-auto-sdk-4.1.1/aacs/android/service/core-service/libs/apl.aar: 80abd2323086f64d339f4dc135f19543
+/Users/jimmyhsj/Projects/alexa-auto-sdk-4.1.1/aacs/android/service/core-service/libs/bluetooth.aar: 09797038a6ec2775fa420381717b3dd1
+/Users/jimmyhsj/Projects/alexa-auto-sdk-4.1.1/aacs/android/service/core-service/libs/car-control.aar: 045144efb759f9c157b7643b8b86e0ab
+/Users/jimmyhsj/Projects/alexa-auto-sdk-4.1.1/aacs/android/service/core-service/libs/cbl.aar: 7508fdc9501905286e85cf2b2952091d
+/Users/jimmyhsj/Projects/alexa-auto-sdk-4.1.1/aacs/android/service/core-service/libs/connectivity.aar: fa6ab56ab6f482c307aafcc231ede2f6
+/Users/jimmyhsj/Projects/alexa-auto-sdk-4.1.1/aacs/android/service/core-service/libs/core.aar: 3ad98dc498f405e3bda46a41d05e234e
+/Users/jimmyhsj/Projects/alexa-auto-sdk-4.1.1/aacs/android/service/core-service/libs/custom-domain.aar: e16e91816df7707a729b66e16f24b75e
+/Users/jimmyhsj/Projects/alexa-auto-sdk-4.1.1/aacs/android/service/core-service/libs/messaging.aar: 07200709f8e35db81f5c3f3834c11299
+/Users/jimmyhsj/Projects/alexa-auto-sdk-4.1.1/aacs/android/service/core-service/libs/navigation.aar: 839a3a391d4ef7a2504b2e307118b9f9
+/Users/jimmyhsj/Projects/alexa-auto-sdk-4.1.1/aacs/android/service/core-service/libs/phone-control.aar: 692fd19f62b90f448bc6060e59621690
+/Users/jimmyhsj/Projects/alexa-auto-sdk-4.1.1/aacs/android/service/core-service/libs/text-to-speech-provider.aar: 48ef7c1330286c276c9f1f242af0b113
+/Users/jimmyhsj/Projects/alexa-auto-sdk-4.1.1/aacs/android/service/core-service/libs/text-to-speech.aar: 80c7cb892f6e2df4f11ebf78f73ba86f

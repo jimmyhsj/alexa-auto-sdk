@@ -163,6 +163,9 @@ public class SettingsActivity extends AppCompatActivity {
                 VoiceAssistanceEvent.ALEXA_CBL_AUTH_FINISHED));
 
         mShouldExitAfterFinishingLogin = getIntent().getBooleanExtra(EXTRAS_SHOULD_EXIT_ACTIVITY_AFTER_LOGIN, false);
+        SettingVoiceDelegate delegate = new SettingVoiceDelegate();
+        delegate.onCreate(this);
+        delegate.onReady(this);
     }
 
     @Subscribe(threadMode = ThreadMode.ASYNC)
@@ -574,7 +577,9 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void checkAndStartVoiceService(){
+//        boolean hasShowPermission = Settings.canDrawOverlays(this);  // 检测是否拥有显示在其他应用程序上层的权限
         boolean hasShowPermission = Settings.canDrawOverlays(this);  // 检测是否拥有显示在其他应用程序上层的权限
+
         // 没有权限  前往设置页面开启权限
         if (!hasShowPermission) {
             Toast.makeText(this, "请开启app显示在其他应用程序上层权限", Toast.LENGTH_SHORT).show();
