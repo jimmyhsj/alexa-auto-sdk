@@ -42,10 +42,10 @@ public class AACSBroadcastReceiver extends BroadcastReceiver {
         if (intent == null || intent.getAction() == null) {
             return;
         }
+
         AACSMessageBuilder.parseEmbeddedIntent(intent).ifPresent(message -> {
             Log.d(TAG, message.messageId + " | " + message.topic + " | " + message.action + " | " + message.payload);
-            Log.d("cc_alexa", "AACSBroadcastReceiver:onReceive:parseEmbeddedIntent:"
-                    +message.messageId + " | " + message.topic + " | " + message.action + " | " + message.payload);
+
             switch (message.action) {
                 case Action.AlexaClient.CONNECTION_STATUS_CHANGED:
                     handleConnectionStatusChanged(message);

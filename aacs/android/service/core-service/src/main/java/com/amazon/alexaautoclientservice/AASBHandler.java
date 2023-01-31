@@ -95,7 +95,6 @@ public class AASBHandler {
     }
 
     public void messageReceived(String message) {
-        Log.e("cc_alexa","AASBHandler messageReceived:"+message);
         handleMessage(false, message);
     }
 
