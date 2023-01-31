@@ -51,6 +51,13 @@
     "startServiceOnBootEnabled": true,
     "ipc": {
       "cacheCapacity": 20
+    },
+    "intentTargets" : {
+      "CarControl" : {
+        "type": ["RECEIVER"],
+        "package": ["com.amazon.alexa.auto.app"],
+        "class": ["com.amazon.aacscarcontrol.AACSCarControlReceiver"]
+      }
     }
   },
   "aacs.defaultPlatformHandlers": {

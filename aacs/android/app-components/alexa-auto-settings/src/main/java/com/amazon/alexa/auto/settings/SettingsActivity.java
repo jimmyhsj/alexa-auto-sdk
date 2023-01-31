@@ -23,13 +23,17 @@ import static com.amazon.alexa.auto.apps.common.Constants.VOICE_ASSISTANCE;
 import static com.amazon.alexa.auto.apps.common.Constants.WORK_TOGETHER;
 import static com.amazon.alexa.auto.apps.common.util.ModuleProvider.getModuleAsync;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
@@ -553,4 +557,39 @@ public class SettingsActivity extends AppCompatActivity {
         Optional<AssistantManager> assistantManager = app.getRootComponent().getComponent(AssistantManager.class);
         return assistantManager.orElse(null);
     }
+    //===============================modify by cc start===========================================
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Log.e("cc_alexa","onRequestPermissionsResult:requestCode:"+requestCode);
+        Log.e("cc_alexa","onRequestPermissionsResult:permissions:"+ Arrays.toString(permissions));
+        Log.e("cc_alexa","onRequestPermissionsResult:grantResults:"+ Arrays.toString(grantResults));
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkAndStartVoiceService();
+    }
+
+    public void checkAndStartVoiceService(){
+        boolean hasShowPermission = Settings.canDrawOverlays(this);  // 检测是否拥有显示在其他应用程序上层的权限
+        // 没有权限  前往设置页面开启权限
+        if (!hasShowPermission) {
+            Toast.makeText(this, "请开启app显示在其他应用程序上层权限", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }else{
+            Intent autoVoiceService = new Intent();
+            autoVoiceService.setComponent(new ComponentName(this,"com.amazon.alexa.auto.voiceinteraction.service.AutoVoiceInteractionService"));
+            startService(autoVoiceService);
+        }
+//        Toast.makeText(this, "请开启app显示在其他应用程序上层权限", Toast.LENGTH_SHORT).show();
+//        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        startActivity(intent);
+    }
+    //===============================modify by cc end===========================================
 }
