@@ -19,7 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/voice_chrome_bar_height"
         android:layout_alignParentBottom="true"
-        android:orientation="vertical" />
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/voice_chrome_bar_margin_bottom"/>
 
     <!--  Layout for custom animation will be inserted here  -->
 

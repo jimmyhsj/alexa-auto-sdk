@@ -5,6 +5,7 @@
 
     <!-- Enables getting intents from AACS -->
     <uses-permission android:name="com.amazon.alexaautoclientservice"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
     <application
         android:allowBackup="true"

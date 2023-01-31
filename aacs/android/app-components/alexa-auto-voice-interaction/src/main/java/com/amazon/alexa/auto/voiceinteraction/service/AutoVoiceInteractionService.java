@@ -69,10 +69,13 @@ public class AutoVoiceInteractionService extends VoiceInteractionService {
 
     private static String[] AMAZONLITE_MODEL_FILES;
 
+
     @Override
     public void onCreate() {
         Log.i(TAG, "onCreate");
+        Log.e("cc_alexa", "onCreate:AutoVoiceInteractionService");
         super.onCreate();
+
         EventBus.getDefault().register(this);
 
         AlexaApp mApp = AlexaApp.from(this);
@@ -92,6 +95,7 @@ public class AutoVoiceInteractionService extends VoiceInteractionService {
     @Override
     public void onReady() {
         Log.i(TAG, "OnReady");
+            Log.e("cc_alexa", "OnReady:AutoVoiceInteractionService");
         super.onReady();
 
         // Temporary fix to start AACS 30 seconds after startup of VIS after recent
@@ -148,18 +152,23 @@ public class AutoVoiceInteractionService extends VoiceInteractionService {
             final Bundle args = new Bundle();
             if (isAlexaConnected) {
                 Log.d(TAG, "SpeechRecognizer: Wake word is detected...");
+                Log.e("cc_alexa","SpeechRecognizer: Wake word is detected...");
                 args.putString(AASBConstants.TOPIC, Topic.SPEECH_RECOGNIZER);
                 args.putString(AASBConstants.ACTION, Action.SpeechRecognizer.WAKEWORD_DETECTED);
             } else {
                 Log.d(TAG, "Alexa is not connected!");
+                Log.e("cc_alexa","Alexa is not connected!");
                 args.putString(AASBConstants.TOPIC, Constants.TOPIC_ALEXA_CONNECTION);
                 args.putString(AASBConstants.ACTION, Constants.ACTION_ALEXA_NOT_CONNECTED);
             }
             args.putString(AASBConstants.PAYLOAD, message.getPayload());
-//            showSession(args, SHOW_WITH_ASSIST);
+
+            //modify by cc
+//            showSession(args, VoiceInteractionSession.SHOW_WITH_ASSIST);
             onShow(args,SHOW_WITH_ASSIST);
         }
     }
+
     //===============================modify by cc start===========================================
     public void onShow(Bundle args, int showFlags) {
         Log.d(TAG, "onShow");

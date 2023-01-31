@@ -2,4 +2,5 @@
 <resources>
     <dimen name="auto_padding_bottom">112dp</dimen>
     <dimen name="voice_chrome_bar_height">11dp</dimen>
+    <dimen name="voice_chrome_bar_margin_bottom">14dp</dimen>
 </resources>
