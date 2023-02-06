@@ -43,6 +43,7 @@ public class AACSCarControlReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Log.e("cc_alexa_car_control","AACSCarControlReceiver:"+intent.toString());
         if (intent.hasFileDescriptors()) {
             Uri fileUri = intent.getData();
             CarControlUtil.copyExternalFileToCarControl(context, fileUri);

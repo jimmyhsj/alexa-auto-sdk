@@ -4,9 +4,9 @@
 4
 5    <uses-sdk
 6        android:minSdkVersion="26"
-6-->/Users/jimmyhsj/Projects/alexa-auto-sdk-4.1.1/aacs/android/service/modules/aacs-extra/src/main/AndroidManifest.xml
+6-->D:\workspace\alexa-auto-sdk\aacs\android\service\modules\aacs-extra\src\main\AndroidManifest.xml
 7        android:targetSdkVersion="30" />
-7-->/Users/jimmyhsj/Projects/alexa-auto-sdk-4.1.1/aacs/android/service/modules/aacs-extra/src/main/AndroidManifest.xml
+7-->D:\workspace\alexa-auto-sdk\aacs\android\service\modules\aacs-extra\src\main\AndroidManifest.xml
 8    /
 9
 10</manifest>

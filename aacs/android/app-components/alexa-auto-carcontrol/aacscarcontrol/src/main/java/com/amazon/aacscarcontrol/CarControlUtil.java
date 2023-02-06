@@ -19,8 +19,6 @@ import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -68,7 +66,7 @@ public class CarControlUtil {
         return obj;
     }
 
-    public static void copyExternalFileToCarControl(@NonNull Context context, @NonNull Uri fileUri) {
+    public static void copyExternalFileToCarControl(Context context, Uri fileUri) {
         // Create copy file in externalFiles directory
         File externalFilesDir = new File(context.getFilesDir(), "externalFiles");
         if (!externalFilesDir.exists())
