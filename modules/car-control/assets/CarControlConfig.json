@@ -3208,14 +3208,14 @@
                             "retrievable": false
                         },
                         "configuration": {
-                            "unitOfMeasure": "Alexa.Unit.Temperature.Celsius",
+                            "unitOfMeasure": "Alexa.Unit.Temperature.Fahrenheit",
                             "supportedRange": {
-                                "minimumValue": 16,
-                                "maximumValue": 32,
+                                "minimumValue": 60,
+                                "maximumValue": 90,
                                 "precision": 1
                             },
                             "presets": [{
-                                    "rangeValue": 16,
+                                    "rangeValue": 60,
                                     "presetResources": {
                                         "friendlyNames": [{
                                                 "@type": "asset",
@@ -3233,7 +3233,7 @@
                                     }
                                 },
                                 {
-                                    "rangeValue": 24,
+                                    "rangeValue": 75,
                                     "presetResources": {
                                         "friendlyNames": [{
                                             "@type": "asset",
@@ -3244,7 +3244,7 @@
                                     }
                                 },
                                 {
-                                    "rangeValue": 32,
+                                    "rangeValue": 90,
                                     "presetResources": {
                                         "friendlyNames": [{
                                                 "@type": "asset",
@@ -3323,14 +3323,14 @@
                             "retrievable": false
                         },
                         "configuration": {
-                            "unitOfMeasure": "Alexa.Unit.Temperature.Celsius",
+                            "unitOfMeasure": "Alexa.Unit.Temperature.Fahrenheit",
                             "supportedRange": {
-                                "minimumValue": 16,
-                                "maximumValue": 32,
+                                "minimumValue": 60,
+                                "maximumValue": 90,
                                 "precision": 1
                             },
                             "presets": [{
-                                    "rangeValue": 16,
+                                    "rangeValue": 60,
                                     "presetResources": {
                                         "friendlyNames": [{
                                                 "@type": "asset",
@@ -3348,7 +3348,7 @@
                                     }
                                 },
                                 {
-                                    "rangeValue": 24,
+                                    "rangeValue": 75,
                                     "presetResources": {
                                         "friendlyNames": [{
                                             "@type": "asset",
@@ -3359,7 +3359,7 @@
                                     }
                                 },
                                 {
-                                    "rangeValue": 32,
+                                    "rangeValue": 90,
                                     "presetResources": {
                                         "friendlyNames": [{
                                                 "@type": "asset",
@@ -3438,14 +3438,14 @@
                             "retrievable": false
                         },
                         "configuration": {
-                            "unitOfMeasure": "Alexa.Unit.Temperature.Celsius",
+                            "unitOfMeasure": "Alexa.Unit.Temperature.Fahrenheit",
                             "supportedRange": {
-                                "minimumValue": 16,
-                                "maximumValue": 32,
+                                "minimumValue": 60,
+                                "maximumValue": 90,
                                 "precision": 1
                             },
                             "presets": [{
-                                    "rangeValue": 16,
+                                    "rangeValue": 60,
                                     "presetResources": {
                                         "friendlyNames": [{
                                                 "@type": "asset",
@@ -3463,7 +3463,7 @@
                                     }
                                 },
                                 {
-                                    "rangeValue": 24,
+                                    "rangeValue": 75,
                                     "presetResources": {
                                         "friendlyNames": [{
                                             "@type": "asset",
@@ -3474,7 +3474,7 @@
                                     }
                                 },
                                 {
-                                    "rangeValue": 32,
+                                    "rangeValue": 90,
                                     "presetResources": {
                                         "friendlyNames": [{
                                                 "@type": "asset",
@@ -3553,14 +3553,14 @@
                             "retrievable": false
                         },
                         "configuration": {
-                            "unitOfMeasure": "Alexa.Unit.Temperature.Celsius",
+                            "unitOfMeasure": "Alexa.Unit.Temperature.Fahrenheit",
                             "supportedRange": {
-                                "minimumValue": 16,
-                                "maximumValue": 32,
+                                "minimumValue": 60,
+                                "maximumValue": 90,
                                 "precision": 1
                             },
                             "presets": [{
-                                    "rangeValue": 16,
+                                    "rangeValue": 60,
                                     "presetResources": {
                                         "friendlyNames": [{
                                                 "@type": "asset",
@@ -3578,7 +3578,7 @@
                                     }
                                 },
                                 {
-                                    "rangeValue": 24,
+                                    "rangeValue": 75,
                                     "presetResources": {
                                         "friendlyNames": [{
                                             "@type": "asset",
@@ -3589,7 +3589,7 @@
                                     }
                                 },
                                 {
-                                    "rangeValue": 32,
+                                    "rangeValue": 90,
                                     "presetResources": {
                                         "friendlyNames": [{
                                                 "@type": "asset",
@@ -3668,14 +3668,14 @@
                             "retrievable": false
                         },
                         "configuration": {
-                            "unitOfMeasure": "Alexa.Unit.Temperature.Celsius",
+                            "unitOfMeasure": "Alexa.Unit.Temperature.Fahrenheit",
                             "supportedRange": {
-                                "minimumValue": 16,
-                                "maximumValue": 32,
+                                "minimumValue": 60,
+                                "maximumValue": 90,
                                 "precision": 1
                             },
                             "presets": [{
-                                    "rangeValue": 16,
+                                    "rangeValue": 60,
                                     "presetResources": {
                                         "friendlyNames": [{
                                                 "@type": "asset",
@@ -3693,7 +3693,7 @@
                                     }
                                 },
                                 {
-                                    "rangeValue": 24,
+                                    "rangeValue": 75,
                                     "presetResources": {
                                         "friendlyNames": [{
                                             "@type": "asset",
@@ -3704,7 +3704,7 @@
                                     }
                                 },
                                 {
-                                    "rangeValue": 32,
+                                    "rangeValue": 90,
                                     "presetResources": {
                                         "friendlyNames": [{
                                                 "@type": "asset",
@@ -3783,14 +3783,14 @@
                             "retrievable": false
                         },
                         "configuration": {
-                            "unitOfMeasure": "Alexa.Unit.Temperature.Celsius",
+                            "unitOfMeasure": "Alexa.Unit.Temperature.Fahrenheit",
                             "supportedRange": {
-                                "minimumValue": 16,
-                                "maximumValue": 32,
+                                "minimumValue": 60,
+                                "maximumValue": 90,
                                 "precision": 1
                             },
                             "presets": [{
-                                    "rangeValue": 16,
+                                    "rangeValue": 60,
                                     "presetResources": {
                                         "friendlyNames": [{
                                                 "@type": "asset",
@@ -3808,7 +3808,7 @@
                                     }
                                 },
                                 {
-                                    "rangeValue": 24,
+                                    "rangeValue": 75,
                                     "presetResources": {
                                         "friendlyNames": [{
                                             "@type": "asset",
@@ -3819,7 +3819,7 @@
                                     }
                                 },
                                 {
-                                    "rangeValue": 32,
+                                    "rangeValue": 90,
                                     "presetResources": {
                                         "friendlyNames": [{
                                                 "@type": "asset",
@@ -3898,14 +3898,14 @@
                             "retrievable": false
                         },
                         "configuration": {
-                            "unitOfMeasure": "Alexa.Unit.Temperature.Celsius",
+                            "unitOfMeasure": "Alexa.Unit.Temperature.Fahrenheit",
                             "supportedRange": {
-                                "minimumValue": 16,
-                                "maximumValue": 32,
+                                "minimumValue": 60,
+                                "maximumValue": 90,
                                 "precision": 1
                             },
                             "presets": [{
-                                    "rangeValue": 16,
+                                    "rangeValue": 60,
                                     "presetResources": {
                                         "friendlyNames": [{
                                                 "@type": "asset",
@@ -3923,7 +3923,7 @@
                                     }
                                 },
                                 {
-                                    "rangeValue": 24,
+                                    "rangeValue": 75,
                                     "presetResources": {
                                         "friendlyNames": [{
                                             "@type": "asset",
@@ -3934,7 +3934,7 @@
                                     }
                                 },
                                 {
-                                    "rangeValue": 32,
+                                    "rangeValue": 90,
                                     "presetResources": {
                                         "friendlyNames": [{
                                                 "@type": "asset",
