@@ -15,7 +15,6 @@
 
 package com.amazon.aacscarcontrol;
 
-import android.car.VehiclePropertyIds;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -121,11 +120,12 @@ public class CarControlHelper {
                                                             .getJSONObject(CarControlConstants.CONFIGURATION)
                                                             .getString(CarControlConstants.AREA_ID));
                         }
-                        int propertyId = (int) VehiclePropertyIds.class
-                                                 .getField(capabilitiesArray.getJSONObject(i)
-                                                                   .getJSONObject(CarControlConstants.CONFIGURATION)
-                                                                   .getString(CarControlConstants.PROPERTY_ID))
-                                                 .get(null);
+//                        int propertyId = (int) VehiclePropertyIds.class
+//                                                 .getField(capabilitiesArray.getJSONObject(i)
+//                                                                   .getJSONObject(CarControlConstants.CONFIGURATION)
+//                                                                   .getString(CarControlConstants.PROPERTY_ID))
+//                                                 .get(null);
+                        int propertyId = 0;
                         CarControlConstants.DataType dataType =
                                 CarControlUtil.getDataType(capabilitiesArray.getJSONObject(i)
                                                                    .getJSONObject(CarControlConstants.CONFIGURATION)
@@ -133,7 +133,7 @@ public class CarControlHelper {
                         propertySetting = new PropertySetting(propertyId, areaId, dataType, "");
                     }
                 }
-            } catch (JSONException | NoSuchFieldException | IllegalAccessException e) {
+            } catch (JSONException e) {
                 Log.e(TAG, "Could not find Property Setting from AACS CarControl Config " + e);
             }
         }
@@ -164,10 +164,11 @@ public class CarControlHelper {
                         JSONArray propertySettingsJson =
                                 supportedModes.getJSONObject(i).getJSONArray(CarControlConstants.MODE_SETTINGS);
                         for (int j = 0; j < propertySettingsJson.length(); j++) {
-                            int propertyId = (int) VehiclePropertyIds.class
-                                                     .getField(propertySettingsJson.getJSONObject(j).getString(
-                                                             CarControlConstants.PROPERTY_ID))
-                                                     .get(null);
+//                            int propertyId = (int) VehiclePropertyIds.class
+//                                                     .getField(propertySettingsJson.getJSONObject(j).getString(
+//                                                             CarControlConstants.PROPERTY_ID))
+//                                                     .get(null);
+                            int propertyId = 0;
                             int areaId = getAreaId(endpointId);
                             if (propertySettingsJson.getJSONObject(j).has(CarControlConstants.AREA_ID)) {
                                 areaId = Integer.decode(
@@ -181,7 +182,7 @@ public class CarControlHelper {
                         }
                     }
                 }
-            } catch (JSONException | NoSuchFieldException | IllegalAccessException e) {
+            } catch (JSONException e) {
                 Log.e(TAG, "Could not find Property Settings for Mode Controller from AACS CarControl Config " + e);
             }
         }

@@ -403,6 +403,8 @@ public class LWAAuthController implements AuthController {
     class AlexaClientEventReceiver {
         @Subscribe
         public void OnReceive(AuthWorkflowData data) {
+            Log.e("cc_alexa","AlexaClientEventReceiver:"+data.toString());
+
             if (data.getAuthState().equals(AuthState.Alexa_Client_Connected)) {
                 setAuthState(new AuthStatus(isAuthenticated(), getUserIdentity()));
                 mIsAlexaConnected = true;

@@ -50,6 +50,7 @@ public class CBLAuthReceiver extends BroadcastReceiver {
         if (intent == null || intent.getAction() == null) {
             return;
         }
+        Log.e("cc_alexa","CBLAuthReceiver:onReceive:"+intent);
 
         // if intent is aacs state and not embedded intent handle it here
         if (AACSConstants.ACTION_STATE_CHANGE.equals(intent.getAction())) {
@@ -58,7 +59,7 @@ public class CBLAuthReceiver extends BroadcastReceiver {
 
             if (intent.hasExtra("state")) {
                 newState = intent.getStringExtra("state");
-
+                Log.e("cc_alexa","CBLAuthReceiver:ACTION_STATE_CHANGE:"+newState);
                 if (newState.equals(AACSConstants.State.ENGINE_INITIALIZED.name())) {
                     EventBus.getDefault().post(
                             new AuthWorkflowData(AuthState.Alexa_Client_Auth_Unintialized, null, null));

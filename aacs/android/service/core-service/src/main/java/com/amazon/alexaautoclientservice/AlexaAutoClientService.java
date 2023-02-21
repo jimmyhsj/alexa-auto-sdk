@@ -178,8 +178,11 @@ public class AlexaAutoClientService extends Service implements AACSContext {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onStartCommand, " + intent);
+        Log.d("cc_alexa", "AlexaAutoClientService onStartCommand, " + intent);
+        Log.d("cc_alexa", "AlexaAutoClientService mStateMachine:" + mStateMachine.getState());
 
         if (mStateMachine.getState() == AACSConstants.State.STARTED && intent != null && intent.getAction() != null) {
+            Log.d("cc_alexa", "AlexaAutoClientService:mStateMachine.getState() == AACSConstants.State.STARTED");
             if (intent.getAction().equals(Action.LAUNCH_SERVICE)) {
                 if (!intent.getBooleanExtra(AACSConstants.NEW_CONFIG, false) && FileUtil.isConfigurationSaved(this)) {
                     // Set configuration variables using SharedPref
