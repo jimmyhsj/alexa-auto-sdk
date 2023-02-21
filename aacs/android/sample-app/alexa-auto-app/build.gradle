@@ -24,6 +24,21 @@ android {
         }
     }
 
+    signingConfigs {
+        release {
+            storeFile file("keystore/q2.jks")
+            storePassword "pateo2019"
+            keyAlias "qing2"
+            keyPassword "pateo2019"
+        }
+        debug {
+            storeFile file("keystore/q2.jks")
+            storePassword "pateo2019"
+            keyAlias "qing2"
+            keyPassword "pateo2019"
+        }
+    }
+
     flavorDimensions "type"
     productFlavors {
         remote {
