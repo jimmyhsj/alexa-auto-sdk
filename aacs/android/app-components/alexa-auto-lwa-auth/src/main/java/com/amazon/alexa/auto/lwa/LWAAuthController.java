@@ -22,6 +22,7 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -406,6 +407,7 @@ public class LWAAuthController implements AuthController {
             Log.e("cc_alexa","AlexaClientEventReceiver:"+data.toString());
 
             if (data.getAuthState().equals(AuthState.Alexa_Client_Connected)) {
+                Toast.makeText(context.get(),"alexa is connected",Toast.LENGTH_LONG);
                 setAuthState(new AuthStatus(isAuthenticated(), getUserIdentity()));
                 mIsAlexaConnected = true;
             } else if (data.getAuthState().equals(AuthState.Alexa_Client_Disconnected)) {

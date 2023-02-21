@@ -6,13 +6,15 @@
     android:id="@+id/root"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
         <LinearLayout
             android:id="@+id/navigation_bar_fragment"
             android:tag="navbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="125dp"
             android:layout_marginTop="@dimen/navigation_horizontal_margin">
                 <include
                     android:id="@+id/navigation_bar"
@@ -26,5 +28,6 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:layout_marginTop="@dimen/item_vertical_margin"
+            android:layout_marginLeft="120dp"
             app:defaultNavHost="true" />
 </LinearLayout>
