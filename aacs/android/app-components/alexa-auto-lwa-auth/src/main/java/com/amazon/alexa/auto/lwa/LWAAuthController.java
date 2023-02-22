@@ -405,9 +405,7 @@ public class LWAAuthController implements AuthController {
         @Subscribe
         public void OnReceive(AuthWorkflowData data) {
             Log.e("cc_alexa","AlexaClientEventReceiver:"+data.toString());
-
             if (data.getAuthState().equals(AuthState.Alexa_Client_Connected)) {
-                Toast.makeText(context.get(),"alexa is connected",Toast.LENGTH_LONG).show();
                 setAuthState(new AuthStatus(isAuthenticated(), getUserIdentity()));
                 mIsAlexaConnected = true;
             } else if (data.getAuthState().equals(AuthState.Alexa_Client_Disconnected)) {

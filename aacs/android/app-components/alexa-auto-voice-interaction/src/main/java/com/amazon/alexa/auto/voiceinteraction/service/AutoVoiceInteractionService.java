@@ -22,6 +22,8 @@ import android.os.SystemClock;
 import android.service.voice.VoiceInteractionService;
 import android.service.voice.VoiceInteractionSession;
 import android.util.Log;
+import android.view.Gravity;
+import android.widget.Toast;
 
 import com.amazon.aacsconstants.AASBConstants;
 import com.amazon.aacsconstants.Action;
@@ -130,10 +132,14 @@ public class AutoVoiceInteractionService extends VoiceInteractionService {
 
     @Subscribe
     public void onVoiceInteractionStateChange(AutoVoiceInteractionMessage message) {
+        if (message.getAction().equals("CONNECTED")) {
+            Toast toast = Toast.makeText(this, "Alexa is connected", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        }
         if (message.getTopic().equals(Constants.TOPIC_ALEXA_CONNECTION)) {
             isAlexaConnected = message.getAction().equals(Constants.CONNECTION_STATUS_CONNECTED);
         }
-
         if (message.getAction().equals(Action.SpeechRecognizer.WAKEWORD_DETECTED)) {
             final Bundle args = new Bundle();
             if (isAlexaConnected) {
