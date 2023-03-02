@@ -23,6 +23,7 @@ import static com.amazon.alexa.auto.apps.common.Constants.VOICE_ASSISTANCE;
 import static com.amazon.alexa.auto.apps.common.Constants.WORK_TOGETHER;
 import static com.amazon.alexa.auto.apps.common.util.ModuleProvider.getModuleAsync;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -109,7 +110,9 @@ public class SettingsActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate");
         mViewBinding = SettingsActivityLayoutBinding.inflate(getLayoutInflater());
 
-        setContentView(mViewBinding.root);
+        //modify by cc
+        //setContentView(mViewBinding.root);
+        setContentView(mViewBinding.rootNew);
 
         if (mViewModel == null) {
             // If not injected by test, obtain view model from view model provider.
@@ -159,6 +162,17 @@ public class SettingsActivity extends AppCompatActivity {
                 VoiceAssistanceEvent.ALEXA_CBL_AUTH_FINISHED));
 
         mShouldExitAfterFinishingLogin = getIntent().getBooleanExtra(EXTRAS_SHOULD_EXIT_ACTIVITY_AFTER_LOGIN, false);
+
+        //////////////
+        //add by cc test
+        findViewById(R.id.settings_activity_stop_music).setOnLongClickListener(v -> {
+            Log.e("cc_alexa", "stop music");
+            Intent intent = new Intent();
+            intent.setAction("com.amazon.pateo.test.stop");
+            SettingsActivity.this.sendBroadcast(intent);
+            return true;
+        });
+
     }
 
     @Subscribe(threadMode = ThreadMode.ASYNC)

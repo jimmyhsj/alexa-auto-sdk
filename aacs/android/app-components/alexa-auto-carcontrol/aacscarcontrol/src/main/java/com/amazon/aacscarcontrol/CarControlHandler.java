@@ -16,7 +16,10 @@
 package com.amazon.aacscarcontrol;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
+import android.view.Gravity;
 import android.widget.Toast;
 
 import com.amazon.aacsconstants.AACSConstants;
@@ -24,58 +27,89 @@ import com.amazon.aacsconstants.AACSConstants;
 public class CarControlHandler {
     private static final String TAG = AACSConstants.AACS + "-" + CarControlHandler.class.getCanonicalName();
     private Context mContext;
+    private Handler mHandler;
 
-    public CarControlHandler(Context context) {
+    public CarControlHandler(Handler handler, Context context) {
+        mHandler = handler;
         mContext = context;
     }
 
 
     public boolean changePowerController(String endpointId, boolean turnOn) {
-        Log.e("cc_alexa","changePowerController:endpointId:"+endpointId);
-        Log.e("cc_alexa","changePowerController:turnOn:"+turnOn);
-        Toast.makeText(mContext,"changePowerController:endpointId:"+endpointId+"  turnOn:"+turnOn,Toast.LENGTH_LONG).show();
+        Log.e("cc_alexa", "changePowerController:endpointId:" + endpointId);
+        Log.e("cc_alexa", "changePowerController:turnOn:" + turnOn);
+        if (endpointId.equals("default.ac")) {
+            String action = "air conditioning is on";
+            if (!turnOn) {
+                action = "air conditioning is off";
+            }
+            String finalAction = action;
+            mHandler.post(() -> {
+                //            Toast.makeText(mContext,"changePowerController:endpointId:"+endpointId+"  turnOn:"+turnOn,Toast.LENGTH_LONG).show();
+                Toast toast = Toast.makeText(mContext, finalAction, Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+            });
+        }
         return true;
     }
 
 
     public boolean changeToggleController(String endpointId, String instance, boolean turnOn) {
-        Log.e("cc_alexa","changeToggleController:endpointId:"+endpointId);
-        Log.e("cc_alexa","changeToggleController:instance:"+instance);
-        Log.e("cc_alexa","changeToggleController:turnOn:"+turnOn);
-        Toast.makeText(mContext,"changeToggleController:endpointId:"+endpointId+"  instance:"+instance+"  turnOn:"+turnOn,Toast.LENGTH_LONG).show();
+        Log.e("cc_alexa", "changeToggleController:endpointId:" + endpointId);
+        Log.e("cc_alexa", "changeToggleController:instance:" + instance);
+        Log.e("cc_alexa", "changeToggleController:turnOn:" + turnOn);
+        Toast.makeText(mContext, "changeToggleController:endpointId:" + endpointId + "  instance:" + instance + "  turnOn:" + turnOn, Toast.LENGTH_LONG).show();
         return true;
     }
 
 
     public boolean setRangeControllerValue(String endpointId, String instance, double value) {
-        Log.e("cc_alexa","setRangeControllerValue:endpointId:"+endpointId);
-        Log.e("cc_alexa","setRangeControllerValue:instance:"+instance);
-        Log.e("cc_alexa","setRangeControllerValue:value:"+value);
-        Toast.makeText(mContext,"setRangeControllerValue:endpointId:"+endpointId+"  instance:"+instance+"  value:"+value,Toast.LENGTH_LONG).show();
+        Log.e("cc_alexa", "setRangeControllerValue:endpointId:" + endpointId);
+        Log.e("cc_alexa", "setRangeControllerValue:instance:" + instance);
+        Log.e("cc_alexa", "setRangeControllerValue:value:" + value);
+        if (endpointId.equals("default.heater") && instance.equals("temperature")) {
+            String action = "the ac temperature is set to" + value;
+            mHandler.post(() -> {
+//                Toast.makeText(mContext, "setRangeControllerValue:endpointId:" + endpointId + "  instance:" + instance + "  value:" + value, Toast.LENGTH_LONG).show();
+                Toast toast = Toast.makeText(mContext, action, Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+            });
+        }
+        if (endpointId.equals("default.fan") && instance.equals("speed")) {
+            String action = "the ac fan speed is set to" + value;
+            mHandler.post(() -> {
+//                Toast.makeText(mContext, "setRangeControllerValue:endpointId:" + endpointId + "  instance:" + instance + "  value:" + value, Toast.LENGTH_LONG).show();
+                Toast toast = Toast.makeText(mContext, action, Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+            });
+        }
         return true;
     }
 
     public boolean adjustRangeControllerValue(String endpointId, String instance, double delta) {
-        Log.e("cc_alexa","adjustRangeControllerValue:endpointId:"+endpointId);
-        Log.e("cc_alexa","adjustRangeControllerValue:instance:"+instance);
-        Log.e("cc_alexa","adjustRangeControllerValue:delta:"+delta);
-        Toast.makeText(mContext,"adjustRangeControllerValue:endpointId:"+endpointId+"  instance:"+instance+"  delta:"+delta,Toast.LENGTH_LONG).show();
+        Log.e("cc_alexa", "adjustRangeControllerValue:endpointId:" + endpointId);
+        Log.e("cc_alexa", "adjustRangeControllerValue:instance:" + instance);
+        Log.e("cc_alexa", "adjustRangeControllerValue:delta:" + delta);
+//        Toast.makeText(mContext, "adjustRangeControllerValue:endpointId:" + endpointId + "  instance:" + instance + "  delta:" + delta, Toast.LENGTH_LONG).show();
         return true;
     }
 
     public boolean setModeControllerValue(String endpointId, String instance, String value) {
-        Log.e("cc_alexa","setModeControllerValue:endpointId:"+endpointId);
-        Log.e("cc_alexa","setModeControllerValue:instance:"+instance);
-        Log.e("cc_alexa","setModeControllerValue:value:"+value);
-        Toast.makeText(mContext,"setModeControllerValue:endpointId:"+endpointId+"  instance:"+instance+"  value:"+value,Toast.LENGTH_LONG).show();
+        Log.e("cc_alexa", "setModeControllerValue:endpointId:" + endpointId);
+        Log.e("cc_alexa", "setModeControllerValue:instance:" + instance);
+        Log.e("cc_alexa", "setModeControllerValue:value:" + value);
+//        Toast.makeText(mContext, "setModeControllerValue:endpointId:" + endpointId + "  instance:" + instance + "  value:" + value, Toast.LENGTH_LONG).show();
         return true;
     }
 
     public boolean adjustModeControllerValue(String endpointId, String instance, int delta) {
-        Log.e("cc_alexa","adjustModeControllerValue:endpointId:"+endpointId);
-        Log.e("cc_alexa","adjustModeControllerValue:instance:"+instance);
-        Log.e("cc_alexa","adjustModeControllerValue:delta:"+delta);
-        Toast.makeText(mContext,"adjustModeControllerValue:endpointId:"+endpointId+"  instance:"+instance+"  delta:"+delta,Toast.LENGTH_LONG).show();
+        Log.e("cc_alexa", "adjustModeControllerValue:endpointId:" + endpointId);
+        Log.e("cc_alexa", "adjustModeControllerValue:instance:" + instance);
+        Log.e("cc_alexa", "adjustModeControllerValue:delta:" + delta);
+//        Toast.makeText(mContext, "adjustModeControllerValue:endpointId:" + endpointId + "  instance:" + instance + "  delta:" + delta, Toast.LENGTH_LONG).show();
         return true;
     }
 

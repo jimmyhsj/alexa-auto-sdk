@@ -16,7 +16,10 @@ package com.amazon.alexa.auto.media.browse;
 
 import android.app.Notification;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,6 +35,7 @@ import androidx.annotation.VisibleForTesting;
 import androidx.media.MediaBrowserServiceCompat;
 
 import com.amazon.aacsconstants.Action;
+import com.amazon.aacsconstants.MediaConstants;
 import com.amazon.aacsconstants.Topic;
 import com.amazon.alexa.auto.aacs.common.AACSMessageBuilder;
 import com.amazon.alexa.auto.aacs.common.AACSMessageSender;
@@ -56,6 +60,7 @@ import com.google.android.exoplayer2.Player;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONStringer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -153,6 +158,10 @@ public class AlexaMediaBrowseService extends MediaBrowserServiceCompat {
 
         mMediaPlayer.getPlayer().addListener(mMediaPlayerEventListener);
         mShutdownActionReceiver.onCreate(mMediaSessionManager);
+
+        //////////////////////
+        //add by cc test
+        registerTestMusicControlReceiver();
     }
 
     @Override
@@ -164,6 +173,8 @@ public class AlexaMediaBrowseService extends MediaBrowserServiceCompat {
         mServiceLifecycle.startServiceWithIdleTimer();
 
         AACSMessageBuilder.parseEmbeddedIntent(intent).ifPresent(message -> {
+
+            Log.e("cc_alexa_1","AlexaMediaBrowseService:message:"+ message);
             if (Topic.AUDIO_OUTPUT.equals(message.topic)) {
                 mAudioPlayerHandler.handleAACSCommand(message);
                 if (Action.AudioOutput.PREPARE.equals(message.action)) {
@@ -208,6 +219,9 @@ public class AlexaMediaBrowseService extends MediaBrowserServiceCompat {
             Log.e(TAG, "Error closing the Media Player Handler");
         }
         mShutdownActionReceiver.onDestroy();
+        //////////////////////
+        //add by cc test
+        unRegisterTestMusicControlReceiver();
     }
 
     @Override
@@ -496,4 +510,31 @@ public class AlexaMediaBrowseService extends MediaBrowserServiceCompat {
             mServiceStarted = false;
         }
     }
+
+
+    //////////////
+    //add by cc test
+    private static final String TEST_STOP_MUSIC_ACTION = "com.amazon.pateo.test.stop";
+    private final BroadcastReceiver testMusicControlReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.e("cc_alexa","testMusicControlReceiver:onReceive:"+intent.toString());
+            if (intent.getAction().equals(TEST_STOP_MUSIC_ACTION)) {
+                mMediaPlayer.getPlayer().removeListener(mMediaPlayerEventListener);
+                mMediaPlayer.getPlayer().stop();
+                mMediaPlayer.getPlayer().addListener(mMediaPlayerEventListener);
+            }
+        }
+    };
+
+    public void registerTestMusicControlReceiver(){
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(TEST_STOP_MUSIC_ACTION);
+        registerReceiver(testMusicControlReceiver,intentFilter);
+    }
+
+    public void unRegisterTestMusicControlReceiver(){
+        unregisterReceiver(testMusicControlReceiver);
+    }
+
 }

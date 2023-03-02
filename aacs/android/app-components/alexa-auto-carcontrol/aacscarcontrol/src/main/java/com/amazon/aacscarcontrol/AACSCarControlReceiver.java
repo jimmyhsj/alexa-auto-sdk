@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.util.Log;
 
 import com.amazon.aacsconstants.Action;
@@ -40,6 +41,7 @@ public class AACSCarControlReceiver extends BroadcastReceiver {
     private static AACSMessageSender mAACSMessageSender;
     private static Context mContext;
     private static CarControlHandler mCarControlHandler;
+    private static Handler mHandler = new Handler();
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -76,7 +78,7 @@ public class AACSCarControlReceiver extends BroadcastReceiver {
      */
     private static void setControllerValue(Context context, String payload, String messageId) {
         if (mCarControlHandler == null) {
-            mCarControlHandler = new CarControlHandler(context);
+            mCarControlHandler = new CarControlHandler(mHandler,context);
         }
         JSONObject reply = new JSONObject();
         boolean isSuccessful = false;
@@ -151,7 +153,7 @@ public class AACSCarControlReceiver extends BroadcastReceiver {
     private static void adjustControllerValue(Context context, String payload, String messageId) {
         // Initialize Car Control Handler for making call to AAOS Car API
         if (mCarControlHandler == null) {
-            mCarControlHandler = new CarControlHandler(context);
+            mCarControlHandler = new CarControlHandler(mHandler,context);
         }
         boolean isSuccessful = false;
         String endpointId = "";
