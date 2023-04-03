@@ -164,11 +164,6 @@ public class SettingsActivity extends AppCompatActivity {
 
         mShouldExitAfterFinishingLogin = getIntent().getBooleanExtra(EXTRAS_SHOULD_EXIT_ACTIVITY_AFTER_LOGIN, false);
 
-
-        SettingVoiceDelegate delegate = new SettingVoiceDelegate();
-        delegate.onCreate(this);
-        delegate.onReady(this);
-
     }
 
     @Subscribe(threadMode = ThreadMode.ASYNC)
@@ -498,6 +493,7 @@ public class SettingsActivity extends AppCompatActivity {
         if (DefaultAssistantUtil.shouldSkipAssistAppSelectionScreen(getApplicationContext())) {
             return;
         }
+        //modify by cc
 //        navGraph.setStartDestination(R.id.navigation_fragment_assistAppSelection);
     }
 
@@ -566,15 +562,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     //===============================modify by cc start===========================================
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        Log.e("cc_alexa","onRequestPermissionsResult:requestCode:"+requestCode);
-        Log.e("cc_alexa","onRequestPermissionsResult:permissions:"+ Arrays.toString(permissions));
-        Log.e("cc_alexa","onRequestPermissionsResult:grantResults:"+ Arrays.toString(grantResults));
-
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
         checkAndStartVoiceService();
@@ -590,7 +577,7 @@ public class SettingsActivity extends AppCompatActivity {
             startActivity(intent);
         }else{
             Intent autoVoiceService = new Intent();
-            autoVoiceService.setComponent(new ComponentName(this,"com.amazon.alexa.auto.voiceinteraction.service.AutoVoiceInteractionService"));
+            autoVoiceService.setComponent(new ComponentName(this,"com.amazon.alexa.auto.voiceinteraction.service.AutoVoiceDelegateService"));
             startService(autoVoiceService);
         }
 //        Toast.makeText(this, "请开启app显示在其他应用程序上层权限", Toast.LENGTH_SHORT).show();

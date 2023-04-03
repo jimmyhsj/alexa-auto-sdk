@@ -1,3 +1,5 @@
+package com.amazon.alexa.auto.voiceinteraction.service;
+
 /*
  * Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -12,14 +14,15 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package com.amazon.alexa.auto.voiceinteraction.service;
 
 import static android.service.voice.VoiceInteractionSession.SHOW_WITH_ASSIST;
 
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Looper;
 import android.os.SystemClock;
 import android.service.voice.VoiceInteractionService;
@@ -27,6 +30,8 @@ import android.service.voice.VoiceInteractionSession;
 import android.util.Log;
 import android.view.Gravity;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 
 import com.amazon.aacsconstants.AASBConstants;
 import com.amazon.aacsconstants.Action;
@@ -55,8 +60,8 @@ import java.lang.ref.WeakReference;
  * Alexa Auto Voice Interaction Service, extends top-level service of the current global voice interactor,
  * which is providing support for start/stop AACS, handle Alexa wakeword and the back-end of a VoiceInteractor.
  */
-public class AutoVoiceInteractionService extends VoiceInteractionService {
-    private static final String TAG = AutoVoiceInteractionService.class.getCanonicalName();
+public class AutoVoiceDelegateService extends Service {
+    private static final String TAG = AutoVoiceDelegateService.class.getCanonicalName();
 
     AuthController mAuthController;
     AlexaSetupController mAlexaSetupController;
@@ -66,9 +71,6 @@ public class AutoVoiceInteractionService extends VoiceInteractionService {
     AACSMessageSender mMessageSender;
 
     private boolean isAlexaConnected;
-
-    private static String[] AMAZONLITE_MODEL_FILES;
-
 
     @Override
     public void onCreate() {
@@ -89,13 +91,18 @@ public class AutoVoiceInteractionService extends VoiceInteractionService {
         mAACSConfigurator = new AACSConfigurator(ContextWk, mAACSSender, new AACSConfigurationPreferences(ContextWk));
         mMessageSender = new AACSMessageSender(ContextWk, mAACSSender);
         mUiThemeManager = new UiThemeManager(getApplicationContext(), mMessageSender);
+        onReady();
     }
 
+    @Nullable
     @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    //    @Override
     public void onReady() {
         Log.i(TAG, "OnReady");
-        super.onReady();
-
         // Temporary fix to start AACS 30 seconds after startup of VIS after recent
         // device boot. This allows system to settle down and deliver intents in
         // regular time window instead of rather large time window (up to 15 seconds
@@ -126,13 +133,16 @@ public class AutoVoiceInteractionService extends VoiceInteractionService {
         mUiThemeManager.init();
     }
 
-    @Override
     public void onShutdown() {
         Log.i(TAG, "onShutdown");
-        super.onShutdown();
-
         AACSServiceController.stopAACS(this);
         mUiThemeManager.destroy();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        onShutdown();
     }
 
     @Subscribe
@@ -150,17 +160,51 @@ public class AutoVoiceInteractionService extends VoiceInteractionService {
             final Bundle args = new Bundle();
             if (isAlexaConnected) {
                 Log.d(TAG, "SpeechRecognizer: Wake word is detected...");
+                Log.e("cc_alexa","SpeechRecognizer: Wake word is detected...");
                 args.putString(AASBConstants.TOPIC, Topic.SPEECH_RECOGNIZER);
                 args.putString(AASBConstants.ACTION, Action.SpeechRecognizer.WAKEWORD_DETECTED);
             } else {
                 Log.d(TAG, "Alexa is not connected!");
+                Log.e("cc_alexa","Alexa is not connected!");
                 args.putString(AASBConstants.TOPIC, Constants.TOPIC_ALEXA_CONNECTION);
                 args.putString(AASBConstants.ACTION, Constants.ACTION_ALEXA_NOT_CONNECTED);
             }
             args.putString(AASBConstants.PAYLOAD, message.getPayload());
 
-            showSession(args, VoiceInteractionSession.SHOW_WITH_ASSIST);
+            //modify by cc
+//            showSession(args, VoiceInteractionSession.SHOW_WITH_ASSIST);
+            onShow(args,SHOW_WITH_ASSIST);
         }
     }
 
+    //===============================modify by cc start===========================================
+    public void onShow(Bundle args, int showFlags) {
+        Log.d(TAG, "onShow");
+        Intent intent = new Intent(this, VoiceActivity.class);
+        if (showFlags == SHOW_WITH_ASSIST) {
+            String msgTopic = args.getString(AASBConstants.TOPIC, null);
+            if (Topic.SPEECH_RECOGNIZER.equals(msgTopic) || com.amazon.alexa.auto.voice.ui.common.Constants.TOPIC_ALEXA_CONNECTION.equals(msgTopic)) {
+                Log.d(TAG, "Parsing message from VIS... Sending to VA.");
+            } else {
+                Log.e(TAG, "onShow called without message from VIS, VA will not be started.");
+                return;
+            }
+        } else {
+            Log.d(TAG, "SpeechRecognizer: PTT is detected...");
+            args.putString(AASBConstants.TOPIC, Topic.SPEECH_RECOGNIZER);
+            args.putString(AASBConstants.ACTION, Action.SpeechRecognizer.START_CAPTURE);
+            args.putString(AASBConstants.PAYLOAD, "");
+        }
+
+        try {
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtras(args);
+            startActivity(intent);
+        }catch (Exception e){
+
+        }
+
+    }
+    //===============================modify by cc end===========================================
 }
+
