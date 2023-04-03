@@ -580,10 +580,6 @@ public class SettingsActivity extends AppCompatActivity {
             autoVoiceService.setComponent(new ComponentName(this,"com.amazon.alexa.auto.voiceinteraction.service.AutoVoiceDelegateService"));
             startService(autoVoiceService);
         }
-//        Toast.makeText(this, "请开启app显示在其他应用程序上层权限", Toast.LENGTH_SHORT).show();
-//        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
-//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        startActivity(intent);
     }
     //===============================modify by cc end===========================================
 }
